@@ -12,6 +12,7 @@ interface Message {
 }
 
 const Chat = () => {
+  const [isConnected, setIsConnected] = useState(false);
   const { conversationId } = useParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -66,6 +67,7 @@ const Chat = () => {
       },
       reconnectDelay: 5000,
       onConnect: () => {
+        setIsConnected(true);
         stompClient.subscribe(
           `/topic/conversation/${conversationId}`,
           (message) => {
@@ -74,6 +76,9 @@ const Chat = () => {
             setMessages((prev) => [...prev, body]);
           }
         );
+      },
+      onDisconnect: () => {
+       setIsConnected(false);
       },
       onStompError: (frame) => {
         console.error("Broker error:", frame.headers["message"]);
@@ -91,7 +96,10 @@ const Chat = () => {
   // ✉️ Send message
   const handleSend = () => {
     if (!input.trim() || !conversationId) return;
-
+  if (!isConnected) {
+    console.warn("STOMP not connected yet");
+    return;
+  }
     const messagePayload = {
     conversationId: conversationId,  // string UUID is fine
     senderId: currentUserId,         // REQUIRED
@@ -143,8 +151,13 @@ const Chat = () => {
           }}
         />
         <button
+          disabled={!isConnected}
           onClick={handleSend}
-          className="bg-primary text-white px-6 rounded-lg"
+          className={`px-6 rounded-lg ${
+            isConnected
+              ? "bg-primary text-white"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           Send
         </button>
