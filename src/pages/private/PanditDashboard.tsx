@@ -68,14 +68,7 @@ const PanditDashboard = () => {
         },
           }
         );
-          // 1️⃣ Optimistic UI update
-  setMessages((prev) => [
-    ...prev,
-    {
-      ...messagePayload,
-      createdAt: new Date().toISOString(),
-    },
-  ]);
+        
         setMessages(res.data.content.reverse());
       } catch (err) {
         console.error("Failed to fetch messages");
