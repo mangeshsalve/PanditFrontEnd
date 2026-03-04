@@ -68,6 +68,14 @@ const PanditDashboard = () => {
         },
           }
         );
+          // 1️⃣ Optimistic UI update
+  setMessages((prev) => [
+    ...prev,
+    {
+      ...messagePayload,
+      createdAt: new Date().toISOString(),
+    },
+  ]);
         setMessages(res.data.content.reverse());
       } catch (err) {
         console.error("Failed to fetch messages");
@@ -81,7 +89,7 @@ const PanditDashboard = () => {
   useEffect(() => {
     if (!selectedConversation) return;
 
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS("https://panditprojects.onrender.com/wss");
 
     const stompClient = new Client({
       webSocketFactory: () => socket,

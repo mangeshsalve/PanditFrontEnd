@@ -57,7 +57,7 @@ const Chat = () => {
   useEffect(() => {
     if (!conversationId || !token) return;
 
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS("https://panditprojects.onrender.com/wss");
 
     const stompClient = new Client({
       webSocketFactory: () => socket,
