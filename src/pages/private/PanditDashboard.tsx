@@ -116,7 +116,7 @@ const PanditDashboard = () => {
     const messageObj = {
     conversationId: selectedConversation.conversationId,  // string UUID is fine
     senderId: currentUserId,         // REQUIRED
-    message: input
+    content: input
     };
 
     stompClientRef.current?.publish({
