@@ -7,6 +7,10 @@ const Navbar = () => {
 const token = localStorage.getItem("token");
 const role = localStorage.getItem("role");
 const name = localStorage.getItem("name");
+  let finalName="";
+  if(name!=null){
+  finalName=name;
+  }
   const { i18n } = useTranslation();
 
   const changeLanguage = (lang: string) => {
@@ -38,7 +42,7 @@ const handleLogout = () => {
           </Link>
           {name && (
             <span className="text-gray-700 font-medium">
-              Welcome, {name}
+              Welcome, {finalName}
             </span>
           )}
           {!token ? (
