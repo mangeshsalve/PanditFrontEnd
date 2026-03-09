@@ -2,6 +2,19 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 const Home = () => {
   const { t } = useTranslation();
+
+   const token = localStorage.getItem("token");
+   const role = localStorage.getItem("role");
+   let chatPath = "/login";
+
+    if (token) {
+      if (role === "PANDIT") {
+        chatPath = "/pandit-conversations";
+      } else {
+        chatPath = "/pandits";
+      }
+    }
+
     const services = [
     { id: 1, name: t("ganeshPuja") },
     { id: 2, name: t("satyanarayanPuja") },
@@ -22,7 +35,7 @@ const Home = () => {
           </p>
 
           <Link
-            to="/login"
+            to={chatPath}
             className="bg-white text-orange-600 px-10 py-4 rounded-2xl font-semibold shadow-xl hover:scale-105 transition duration-300"
           >
             {t("chatWithPandit")}
