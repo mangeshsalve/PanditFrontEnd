@@ -9,9 +9,9 @@ const Home = () => {
 
     if (token) {
       if (role === "PANDIT") {
-        chatPath = "/pandit-conversations";
+        chatPath = "/pandit-dashboard";
       } else {
-        chatPath = "/pandits";
+        chatPath = "/select-pandit";
       }
     }
 
