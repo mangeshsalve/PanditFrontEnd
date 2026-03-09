@@ -25,7 +25,7 @@ export const connectSocket = (onMessageReceived: (msg: any) => void) => {
 
 export const sendMessage = (message: any) => {
   stompClient?.publish({
-    destination: "/app/chat.sendMessage",
+    destination: "/app/chat",
     body: JSON.stringify(message),
   });
 };

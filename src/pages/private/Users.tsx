@@ -19,7 +19,9 @@ const Users = () => {
         const res = await api.get("/api/users/pandits");
         setPandits(res.data);
       } catch (err) {
-        console.error("Failed to fetch pandits");
+        console.error("Failed to fetch pandits",err);
+         localStorage.removeItem("token");
+      window.location.href = "/login";
       }
     };
 

@@ -47,6 +47,7 @@ const Chat = () => {
 
         setMessages(content);
       } catch (err) {
+
         console.error("Failed to load messages", err);
       }
     };
@@ -72,7 +73,6 @@ const Chat = () => {
           `/topic/conversation/${conversationId}`,
           (message) => {
             const body: Message = JSON.parse(message.body);
-
             setMessages((prev) => [...prev, body]);
           }
         );
@@ -103,7 +103,7 @@ const Chat = () => {
     const messagePayload = {
     conversationId: conversationId,  // string UUID is fine
     senderId: currentUserId,         // REQUIRED
-    message: input
+    content: input
     };
 
     stompClientRef.current?.publish({

@@ -19,11 +19,12 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await api.post("/api/auth/login", form);
-        const { token, role,userId } = response.data;
+        const { token, role,userId ,name } = response.data;
 
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
     localStorage.setItem("userId",userId)
+    localStorage.setItem("name",name)
     console.log("INFO user role is: ",role)
     if (role === "PANDIT") {
       navigate("/pandit-dashboard");

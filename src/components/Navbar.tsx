@@ -6,6 +6,7 @@ const Navbar = () => {
 
 const token = localStorage.getItem("token");
 const role = localStorage.getItem("role");
+const name = localStorage.getItem("name");
   const { i18n } = useTranslation();
 
   const changeLanguage = (lang: string) => {
@@ -35,7 +36,11 @@ const handleLogout = () => {
           <Link to="/" className="hover:text-orange-600">
             Home
           </Link>
-
+          {name && (
+            <span className="text-gray-700 font-medium">
+              Welcome, {name}
+            </span>
+          )}
           {!token ? (
             <Link
               to="/login"
